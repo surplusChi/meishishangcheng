@@ -44,6 +44,7 @@ const CategoryWrap = styled.div `
   }
 `
 const MenuWrap = styled.div `
+  border-top: 1px solid #ccc;
   overflow: hidden;
   flex: 1;
   display: flex;

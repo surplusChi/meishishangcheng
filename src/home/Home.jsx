@@ -17,6 +17,7 @@ import moreActive from '@a/images/more-active.png'
 
 import { CookBook } from './cookbook'
 import {Category} from './category'
+import Map from './map/Map'
 
 export default class Home extends Component {
   state = {
@@ -110,7 +111,7 @@ export default class Home extends Component {
               });
             }}
           >
-            <div>333</div>
+            <Map></Map>
           </TabBar.Item>
           <TabBar.Item
             icon={{ uri: more }}
