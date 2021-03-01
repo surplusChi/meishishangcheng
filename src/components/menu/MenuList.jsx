@@ -9,7 +9,7 @@ const MenuList = (props) => {
   // 解构cate, curCate两个父组件传来的属性
   const {cate, curCate} = props
   return (
-    <MenuWrap>
+    <MenuWrap width="1px 0 0 0 ">
       <aside>
         <ul>
           {
@@ -34,7 +34,12 @@ const MenuList = (props) => {
           {
             cate && cate[curCate].map(value => {
               return (
-                <li key={value}>{value}</li>
+                <li 
+                  key={value}
+                  onClick={props.onGotoList(value)}
+                >
+                  {value}
+                </li>
               )
             })
           }

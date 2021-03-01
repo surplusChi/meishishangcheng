@@ -1,13 +1,16 @@
 import styled from 'styled-components'
 
-const Container = styled.div `
+import border from '@a/styled/border'
+
+const Container =  styled.div `
   padding: .1rem .15rem;
   background-color: ${(props) => props.outerbg};
-  > div {
+`
+// 一像素边框包裹--传参进行一像素边框处理
+const InnerContainer = border(
+  styled.div `
     display: flex;
     height: .4rem;
-    border: ${(props) => props.hasborder ? '1px solid #ee742f' : ''};
-    border-radius: .06rem;
     justify-content: center;
     align-items: center;
     background-color: ${(props) => props.innerbg};
@@ -20,9 +23,10 @@ const Container = styled.div `
     span{
       color: #666;
     }
-  }
 `
+)
 
 export {
-  Container
+  Container,
+  InnerContainer
 }

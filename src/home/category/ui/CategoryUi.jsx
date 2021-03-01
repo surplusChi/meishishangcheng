@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { 
-  CategoryWrap 
+  CategoryWrap,
+  NavUl
 } from './StyledCategory'
 import Search from '@c/search/Search'
 import Menu from './Menu'
@@ -12,7 +13,10 @@ const CategoryUi = (props) => {
   return (
     <CategoryWrap>
       <nav>
-        <ul>
+        <NavUl
+          color="#fff"
+          radius={0.15}
+        >
           <li 
             // 点击li根据设定的0和1 来判断点击的是分类还是食材
             className={tabIndex === 0 ? 'active' : ''} 
@@ -25,12 +29,14 @@ const CategoryUi = (props) => {
 
             {/* 这个li用于点击显示的高亮样式，也是根据设定的0和1 进行判断显示 */}
           <li className={tabIndex === 0 ? 'slide' : 'slide right'}></li>
-        </ul>
+        </NavUl>
       </nav>
       <Search
         outerbg="#fff"
         innerbg="#efefef"
         hasborder={false}
+
+        radius={0.06}
       ></Search>
       <Menu
         // 给Menu组件传入一个属性

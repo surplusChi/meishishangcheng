@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom'
 
 import { Grid } from 'antd-mobile'
 
-import { HotCateWrap } from './StyledCookBook'
+import { HotCateWrap, H1Container } from './StyledCookBook'
 
-export default class HotCate extends Component {
+@withRouter
+class HotCate extends Component {
   state = {
     columnNum: 4,
     hotCateList: [
@@ -58,10 +60,17 @@ export default class HotCate extends Component {
       }
     ]
   }
+  // 点击进入路由列表页面
+  handleClick = ({title}) => {
+    let {history} = this.props
+    history.push('./list', {title})
+  }
   render() {
     return (
       <HotCateWrap>
-        <h1>热门分类</h1>
+        <H1Container
+          width="0 0 1px 0"
+        >热门分类</H1Container>
         <div>
           <Grid data={this.state.hotCateList}
             columnNum={this.state.columnNum}
@@ -74,6 +83,7 @@ export default class HotCate extends Component {
                 </div>
               </div>
             )}
+            onClick={this.handleClick}
           />
         </div>
       </HotCateWrap>
@@ -89,3 +99,5 @@ export default class HotCate extends Component {
     }
   }
 }
+
+export default HotCate

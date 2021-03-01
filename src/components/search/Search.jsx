@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-import {Container} from './StyledSearch'
+import {Container, InnerContainer} from './StyledSearch'
 
 export default class Search extends Component {
   render() {
     return (
       <Container {...this.props}>
-        <div>
+        <InnerContainer {...this.props}>
           <svg t="1613713790852" className="icon" viewBox="0 0 1024 1024" 
           version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1133" 
           width="200" height="200">
@@ -20,7 +20,7 @@ export default class Search extends Component {
             </path>
           </svg>
           <span>想吃什么搜这里，如川菜</span>
-        </div>
+        </InnerContainer>
       </Container>
     )
   }

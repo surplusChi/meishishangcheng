@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 
+import border from '@a/styled/border'
+import ellipsis from '@a/styled/ellipsis'
+
 const Container = styled.div`
   header {
     height: .44rem;
@@ -20,16 +23,18 @@ const SwiperWrap = styled.div `
     position: static !important;
   }
 `
-const HotCateWrap = styled.div `
-  h1 {
+// 一像素边框包裹--传参进行一像素边框处理
+const H1Container = border(
+  styled.h1 `
     height: .5rem;
     padding-left: .2rem;
     color: #666;
     line-height: .5rem;
     background-color: #fff;
     font-weight: normal;
-    border-bottom: 1px solid #ccc;
-  }
+  `
+)
+const HotCateWrap = styled.div `
   > div {
     background-color: #fff;
     padding-top: .2rem;
@@ -53,6 +58,10 @@ const HotCateWrap = styled.div `
   }
   }
 `
+// 多行文本溢出包裹
+const SubTitle = ellipsis(
+  styled.p ``
+)
 const Top10Wrap = styled.div `
   h1 {
     height: .5rem;
@@ -94,5 +103,7 @@ export {
   Container,
   SwiperWrap,
   HotCateWrap,
-  Top10Wrap
+  Top10Wrap,
+  H1Container,
+  SubTitle
 }

@@ -1,0 +1,1 @@
+export const changeSwitch = 'home/change-switch'

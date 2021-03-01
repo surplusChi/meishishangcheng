@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {withRouter} from 'react-router-dom'
 
 import MenuList from '@c/menu/MenuList'
 import {get} from '@u/http'
 
+@withRouter
 class Menu extends Component {
   // 对父组件传来的值做属性验证
   static propTypes = {
@@ -52,6 +54,13 @@ class Menu extends Component {
     }
   }
 
+  handleGotoList = (title) => {
+    return () => {
+      // console.log(title)
+      this.props.history.push('./list', {title})
+    }
+  }
+
   render() {
     return (
       <MenuList 
@@ -61,6 +70,7 @@ class Menu extends Component {
         cate={this.state.cate && this.state.cate[this.props.type]}
         // curCate状态用于子组件的高亮和不同内容的显示
         curCate={this.state.curCate}
+        onGotoList={this.handleGotoList}
       >   
       </MenuList>
     )
