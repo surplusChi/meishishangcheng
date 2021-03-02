@@ -63,7 +63,7 @@ class HotCate extends Component {
   // 点击进入路由列表页面
   handleClick = ({title}) => {
     let {history} = this.props
-    history.push('./list', {title})
+    history.push('/list', {title, from: '/home'})
   }
   render() {
     return (

@@ -32,7 +32,7 @@ const MenuList = (props) => {
       <section>
         <ul>
           {
-            cate && cate[curCate].map(value => {
+            cate && curCate && cate[curCate].map(value => {
               return (
                 <li 
                   key={value}

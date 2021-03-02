@@ -9,7 +9,7 @@ import Menu from './Menu'
 
 const CategoryUi = (props) => {
   // 解构出容器组件传来的属性
-  const { tabIndex,type, onCategoryUiClick} = props
+  const { type, onCategoryUiClick} = props
   return (
     <CategoryWrap>
       <nav>
@@ -18,17 +18,17 @@ const CategoryUi = (props) => {
           radius={0.15}
         >
           <li 
-            // 点击li根据设定的0和1 来判断点击的是分类还是食材
-            className={tabIndex === 0 ? 'active' : ''} 
-            onClick={onCategoryUiClick(0)}
+            // 点击li根据父组件传来的type值 来判断点击的是分类还是食材
+            className={type === 'category' ? 'active' : ''} 
+            onClick={onCategoryUiClick('category')}
           >分类</li>
           <li 
-            className={tabIndex === 1 ? 'active' : ''} 
-            onClick={onCategoryUiClick(1)}
+            className={type === 'material' ? 'active' : ''} 
+            onClick={onCategoryUiClick('material')}
           >食材</li>
 
-            {/* 这个li用于点击显示的高亮样式，也是根据设定的0和1 进行判断显示 */}
-          <li className={tabIndex === 0 ? 'slide' : 'slide right'}></li>
+            {/* 这个li用于点击显示的高亮样式，也是根据父组件传来的type值 进行判断显示 */}
+          <li className={type === 'category' ? 'slide' : 'slide right'}></li>
         </NavUl>
       </nav>
       <Search

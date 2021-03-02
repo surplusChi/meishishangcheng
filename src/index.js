@@ -6,6 +6,7 @@ import { BrowserRouter as Router} from 'react-router-dom'
 
 import App from './App'
 import './assets/styles/reset.css' // 导入全局样式
+import 'animate.css' // 引入样式库
 
 ReactDom.render(
   <Router>

@@ -16,7 +16,7 @@ const CookBookUi = (props) => {
   return (
     <Container>
       <header>美食大全</header>
-      <Swiper list = {swiper(props.list)}></Swiper>
+      <Swiper list = {swiper(props.list)} onGotoDetail={props.onGotoDetail} ></Swiper>
       <Search
          outerbg=""
          innerbg="#fff"
@@ -26,7 +26,7 @@ const CookBookUi = (props) => {
          color="#ee742f"
       ></Search>
       <HotCate></HotCate>
-      <Top10 list = {top10(props.list)}></Top10>
+      <Top10 list = {top10(props.list)} onGotoDetail={props.onGotoDetail}></Top10>
     </Container>
   )
 }

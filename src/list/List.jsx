@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Icon, NavBar } from 'antd-mobile'
 
 import { actionCreator } from '@/home/cookbook'
+import animate from '@h/animate'
 
 import {
   ListContainer,
@@ -24,10 +25,19 @@ import {
     }
   })
 )
+@animate
 class List extends Component {
+  // 点击跳转路由到详情页
+  handleGotoDetail = (title) => {
+    return () => {
+      this.props.history.push('/detail', { title, from: '/list' })
+    }
+  } 
+
   // 返回按钮的回调函数，退回上一个页面
   handleLeftClick = () => {
     let {history} = this.props
+    // let from = this.props.location.state.from
     history.goBack()
   }
   componentDidMount() {
@@ -37,6 +47,7 @@ class List extends Component {
     }
   }
   render() {
+    let state = this.props.location.state
     return (
       <ListContainer>
         <NavBar
@@ -45,7 +56,7 @@ class List extends Component {
           mode="dark"
           onLeftClick={this.handleLeftClick}
         >
-          {this.props.location.state.title}
+          {state && state.title}
         </NavBar>
         <ul>
           {
@@ -53,6 +64,7 @@ class List extends Component {
               <ListWrap
                 width="0 0 1px 0 "
                 key={li.id + i}
+                onClick={this.handleGotoDetail(li.name)}
               >
                 <div>
                   <img src={li.img} width="115" height="75" alt=""/>

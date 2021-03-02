@@ -1,11 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
-
+import {connect} from 'react-redux'
+import { actionCreator as ac } from '@/home/category'
+ 
 import MenuList from '@c/menu/MenuList'
 import {get} from '@u/http'
 
 @withRouter
+@connect(
+  state => ({
+    // 拿到reducer里面的两个公共状态
+    cateAside: state.category.routeInfo.cateAside,
+    // cateType: state.category.routeInfo.cateType
+  }),
+  dispatch => ({
+    // 派发一个方法。记录当前点击的cateAside值
+    changeCateAside(cateAside) {
+      dispatch(ac.changeCateAside(cateAside))
+    }
+  })
+)
 class Menu extends Component {
   // 对父组件传来的值做属性验证
   static propTypes = {
@@ -14,24 +29,8 @@ class Menu extends Component {
   state = {
     cate: null,
     // type为当前组件的type和父组件传来的type做比较来进行逻辑判断的状态
-    type: 'category',
-    curCate: this.props.type === 'category' ? '热门' : '肉类'
-  }
-  
-  // 这个钩子函数，父组件传入的props发生改变，当前组件state发生改变都会被调用(特别敏感-小心使用)
-  static getDerivedStateFromProps(nextProps, preState) {
-    // 当前组件的type状态和父组件传来的type属性值相同时，不做任何操作(子组件可以改变curCate状态)
-    if (nextProps.type === preState.type) {
-      return null
-    } else {
-      return {
-        // 如果不相等，就通过父组件传来的type值，来进行操作
-        curCate: nextProps.type === 'category' ? '热门' : '肉类',
-        // 同时不相等，还有把当前组件的type值改为父组件传来的type进行维护
-        // 就可以保障父组件和子组件都可以改变curCate状态的值了
-        type: nextProps.type
-      }
-    }
+    // type: 'category',
+    // curCate: this.props.type === 'category' ? '热门' : '肉类'
   }
 
   // 通过ajax请求拿取数据
@@ -43,14 +42,18 @@ class Menu extends Component {
     this.setState({
       cate: result.data.data
     })
+    // 当cateAside为空的时候，才进行初始化
+    if(this.props.cateAside === '') {
+      // 根据父组件传来的reducer里面的type值，判断高亮和内容是啥
+      this.props.changeCateAside(this.props.type === 'category' ? '热门' : '肉类')
+    }
   }
 
   // 定义点击事件函数 curCate是子组件传来的属性值，用于改变curCate状态(实现高亮和不同模块内容的切换)
   handleAsideClick = (curCate) => {
     return () => {
-      this.setState({
-        curCate
-      })
+      // 点击修改reducer里面的公共状态
+      this.props.changeCateAside(curCate)
     }
   }
 
@@ -68,8 +71,8 @@ class Menu extends Component {
         onAsideClick={this.handleAsideClick}
         // cate状态用于存储不同的数据(分类和食材两个不同分支)都是靠父组件传来的type属性实现改变
         cate={this.state.cate && this.state.cate[this.props.type]}
-        // curCate状态用于子组件的高亮和不同内容的显示
-        curCate={this.state.curCate}
+        // 读取reducer里面的公共状态cateAside，用于子组件的高亮和不同内容的显示
+        curCate={this.props.cateAside}
         onGotoList={this.handleGotoList}
       >   
       </MenuList>

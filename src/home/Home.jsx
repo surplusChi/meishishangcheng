@@ -7,8 +7,8 @@ import {
 import cookbook from '@a/images/cookbook.png'
 import cookbookActive from '@a/images/cookbook-active.png'
 
-import cotegory from '@a/images/menu.png'
-import cotegoryActive from '@a/images/menu-active.png'
+import category from '@a/images/menu.png'
+import categoryActive from '@a/images/menu-active.png'
 
 import location from '@a/images/location.png'
 import locationActive from '@a/images/location-active.png'
@@ -21,20 +21,38 @@ import {Category} from './category'
 import {More} from './more'
 import Map from './map/Map'
 
+// 导入dispatch派发的方法，点击记录在分类页面
+import { actionCreator as ac } from '@/home/category'
+import animate from '@h/animate'
+
 @connect(
   (state) => {
     return {
-      checked: state.home.checked
+      // 点击更多页面开关，显示隐藏地图的状态
+      checked: state.home.checked,
+      // 点击分类页面记录，当前导航栏所在分类页面上
+      selectedTab: state.category.routeInfo.selectedTab
+    }
+  },
+  (dispatch) => {
+    return {
+      // 点击分类页面，派发一个方法，记录selectedTab
+      changeSelectedTab(selectedTab) {
+        dispatch(ac.changeSelectedTab(selectedTab))
+      }
     }
   }
 ) 
+@animate
 class Home extends Component {
   state = {
-    selectedTab: 'cookbook',
+    // 为了从路由页面退回来，回到之前的页面，记录当前页面的值
+    selectedTab: this.props.selectedTab,
     hidden: false,
     fullScreen: true,
   }
   render() {
+    // console.log(this.props.selectedTab)
     const tabItmes = [          
       <TabBar.Item
         title="美食大全"
@@ -55,7 +73,9 @@ class Home extends Component {
         onPress={() => {
           this.setState({
             selectedTab: 'cookbook',
-          });
+          })
+          // 点击分类页面，记录当前的selectedTab
+          this.props.changeSelectedTab('cookbook')
         }}
         data-seed="logId"
       >
@@ -66,23 +86,25 @@ class Home extends Component {
           <div style={{
             width: '23px',
             height: '23px',
-            background: `url(${cotegory}) center center /  23px 23px no-repeat` }}
+            background: `url(${category}) center center /  23px 23px no-repeat` }}
           />
         }
         selectedIcon={
           <div style={{
             width: '23px',
             height: '23px',
-            background: `url(${cotegoryActive}) center center /  23px 23px no-repeat` }}
+            background: `url(${categoryActive}) center center /  23px 23px no-repeat` }}
           />
         }
         title="分类"
-        key="cotegory"
-        selected={this.state.selectedTab === 'cotegory'}
+        key="category"
+        selected={this.state.selectedTab === 'category'}
         onPress={() => {
           this.setState({
-            selectedTab: 'cotegory',
-          });
+            selectedTab: 'category',
+          })
+          // 点击分类页面，记录当前的selectedTab
+          this.props.changeSelectedTab('category')
         }}
         data-seed="logId1"
       >

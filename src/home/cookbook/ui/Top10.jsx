@@ -11,7 +11,10 @@ const Top10 = (props) => {
         {
           props.list.map(value => {
             return (
-              <li key={value.id}>
+              <li 
+                key={value.id}
+                onClick={props.onGotoDetail(value.name)}
+              >
                 <div>
                   <img src={value.img} alt=""/>
                 </div>
