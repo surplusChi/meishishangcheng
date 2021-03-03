@@ -20,9 +20,9 @@ const List = (props) => {
   const location = useLocation()
 
   // 点击跳转路由到详情页
-  const handleGotoDetail = useCallback((title) => {
+  const handleGotoDetail = useCallback((data) => {
     return () => {
-      history.push('/detail', { title, from: '/list' })
+      history.push('/detail', { data, from: '/list' })
     }
   },[history])
 
@@ -56,7 +56,7 @@ const List = (props) => {
               <ListWrap
                 width="0 0 1px 0 "
                 key={li.id + i}
-                onClick={handleGotoDetail(li.name)}
+                onClick={handleGotoDetail(li)}
               >
                 <div>
                   <img src={li.img} width="115" height="75" alt=""/>

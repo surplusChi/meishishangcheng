@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,11 +19,11 @@ const CookBook = (props) => {
   }, [dispatch])
 
   // 点击跳转路由到详情页
-  const handleGotoDetail = (title) => {
+  const handleGotoDetail = useCallback((title) => {
     return () => {
-      history.push('detail', { title })
+      history.push('/list', { title, from: '/home'})
     }
-  }
+  },[history])
   return(
     <CookBookUi
       // 将ajax请求到的数据传给ui组件 
